@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Takeed - Professional Assurance & Certification</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="bootstrap.min.css" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="fontawesome-free-6.7.2-web/css/all.min.css" />
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="style.css" /> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background-color: #0A192F; /* Dark Blue Background */
+            color: #E6F1FF; /* Light text color */
+        }
+        .en-font { font-family: 'Inter', sans-serif; }
+        .title-font { font-family: 'Times New Roman', Times, serif; font-weight: bold; }
+        html { scroll-behavior: smooth; }
+        
+        .bg-navy { background-color: #0A192F; }
+        .bg-light-navy { background-color: #112240; }
+        .text-green { color: #64FFDA; }
+        .border-green { border-color: #64FFDA; }
+
+        .card-bg {
+            background-color: #112240;
+            border: 1px solid #233554;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-bg:hover {
+            transform: translateY(-5px);
+            border-color: #64FFDA;
+        }
+        .btn-primary {
+            background-color: #64FFDA;
+            color: #0A192F;
+            transition: all 0.3s ease;
+            border: 1px solid #64FFDA;
+        }
+        .btn-primary:hover {
+            background-color: transparent;
+            color: #64FFDA;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #64FFDA;
+            color: #64FFDA;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #CCD6F6;
+        }
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* Navigation Dropdown */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #112240;
+            min-width: 260px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            border: 1px solid #233554;
+            left: 0; /* Align dropdown to the left of the parent */
+            top: 100%; /* Position below the parent link */
+        }
+        .dropdown-content a {
+            color: #CCD6F6;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s ease;
+            white-space: nowrap; /* Prevent wrapping for long text */
+        }
+        .dropdown-content a:hover { background-color: rgba(100, 255, 218, 0.1); }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        /* Spinner */
+        .loader {
+            border: 4px solid #233554;
+            border-radius: 50%;
+            border-top: 4px solid #64FFDA;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal-overlay { transition: opacity 0.3s ease; }
+        .modal-container { transition: transform 0.3s ease; }
+        
+        /* Carousel Custom Styles - More prominent */
+        #heroCarousel {
+            width: 100%;
+            overflow: hidden;
+        }
+        .carousel-item {
+            height: 600px; /* Consistent height for all slides */
+            position: relative;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(60%); /* Darken image for text readability */
+        }
+        .carousel-caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; /* Take full width for centering content */
+            max-width: 900px; /* Limit content width */
+            padding: 0 15px; /* Add some padding */
+            text-align: center;
+            z-index: 10; /* Ensure text is above image */
+        }
+        .carousel-caption h1 {
+            font-size: 3.5rem; /* Larger font for impact */
+            font-weight: 800; /* Bolder */
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #FFFFFF; /* Pure white for contrast */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Text shadow for readability */
+        }
+        .carousel-caption p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .carousel-control-prev, .carousel-control-next {
+            width: 5%; /* Make controls smaller */
+        }
+        .carousel-control-prev-icon, .carousel-control-next-icon {
+            filter: invert(100%) grayscale(100%) brightness(200%); /* Brighten icons */
+            font-size: 2rem; /* Larger arrows */
+        }
+
+        /* Custom styles for detail pages (services/sectors) - LRQA-like */
+        .detail-page-hero {
+            position: relative;
+            height: 400px; /* Consistent height for hero section */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .detail-page-hero img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(40%); /* Darken background image */
+            z-index: 0;
+        }
+        .detail-page-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        .detail-page-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .detail-page-hero p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .detail-page-content h2 {
+            margin-bottom: 1.5rem;
+            color: #CCD6F6; /* Section title color */
+            font-size: 2.25rem;
+            font-weight: 700;
+        }
+        .detail-page-content h3 {
+            color: #64FFDA; /* Green for subheadings */
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .detail-page-content ul {
+            list-style: none; /* Remove default bullet points */
+            padding-left: 0;
+        }
+        .detail-page-content ul li {
+            display: flex;
+            align-items: flex-start; /* Align icon and text at the top */
+            margin-bottom: 0.75rem;
+            color: #E6F1FF; /* List item text color */
+        }
+        .detail-page-content ul li svg {
+            color: #64FFDA; /* Green icon */
+            flex-shrink: 0;
+            margin-right: 0.75rem;
+            margin-top: 0.25rem; /* Adjust icon vertical alignment */
+        }
+
+        .timeline-infographic {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            position: relative;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            color: #E6F1FF;
+        }
+        .timeline-infographic::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #233554;
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+        .timeline-step {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 1;
+            min-width: 150px; /* Ensure steps don't get too narrow */
+        }
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #0A192F;
+            border: 2px solid #64FFDA;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: #64FFDA;
+            font-size: 2rem;
+        }
+        .timeline-step h4 {
+            color: #CCD6F6;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .timeline-infographic {
+                flex-direction: column;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            .timeline-infographic::before {
+                width: 2px;
+                height: 100%;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .timeline-step {
+                flex-direction: row;
+                text-align: left;
+                padding: 1.5rem 0;
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .timeline-icon {
+                margin-right: 1rem;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-navy">
+
+    <header class="bg-navy/80 backdrop-blur-lg sticky top-0 left-0 w-full z-30 en-font">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between py-4">
+                <a href="#" onclick="showPage('home')"><img src="takeed_logo-removebg-preview.png" alt="Takeed Logo" class="h-14"></a>
+                <div class="hidden md:flex items-center space-x-6 text-lg">
+                    <a href="#" onclick="showPage('home')" class="nav-link text-white hover:text-green transition">Home</a>
+                    <div class="dropdown">
+                        <a href="#" onclick="showPage('industries')" class="nav-link text-gray-300 hover:text-green transition">Sectors</a>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="showPage('sector-food')">Food and Beverage</a>
+                            <a href="#" onclick="showPage('sector-financial')">Financial and Professional Services</a>
+                            <a href="#" onclick="showPage('sector-energy')">Energy and Renewables</a>
+                            <a href="#" onclick="showPage('sector-transport')">Transportation and Mobility</a>
+                            <a href="#" onclick="showPage('sector-tech')">Technology and Telecommunications</a>
+                            <a href="#" onclick="showPage('sector-retail')">Consumer Goods and Retail</a>
+                            <a href="#" onclick="showPage('sector-construction')">Construction and Engineering</a>
+                            <a href="#" onclick="showPage('sector-healthcare')">Healthcare and Medical</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#" onclick="showPage('services-landing')" class="nav-link text-gray-300 hover:text-green transition">Services</a>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="showPage('service-iso-revision')">ISO 9001, 14001 & 45001 Revision</a>
+                            <a href="#" onclick="showPage('service-assessment')">Assessment and Certification</a>
+                            <a href="#" onclick="showPage('service-cyber')">Cyber Security Services</a>
+                            <a href="#" onclick="showPage('service-training')">Training</a>
+                            <a href="#" onclick="showPage('service-consulting')">Consulting Service</a>
+                            <a href="#" onclick="showPage('service-data')">Data and Analytics</a>
+                        </div>
+                    </div>
+                    <a href="#" onclick="showPage('resources')" class="nav-link text-gray-300 hover:text-green transition">Resources</a>
+                    <a href="#" onclick="showPage('events')" class="nav-link text-gray-300 hover:text-green transition">Events & Webinars</a>
+                    <a href="#" onclick="showPage('about')" class="nav-link text-gray-300 hover:text-green transition">About Us</a>
+                    <a href="#" onclick="showPage('contact')" class="nav-link text-gray-300 hover:text-green transition">Contact</a>
+                </div>
+                <a href="#" onclick="showPage('contact')" class="hidden md:block btn-secondary py-2 px-6 rounded-lg">Request a Quote</a>
+                <button id="mobile-menu-button" class="md:hidden text-white"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg></button>
+            </nav>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-light-navy">
+             <a href="#" onclick="showPage('home'); closeMenu();" class="block py-2 px-4 text-sm text-white hover:bg-navy">Home</a>
+             <a href="#" onclick="showPage('industries'); closeMenu();" class="block py-2 px-4 text-sm text-white hover:bg-navy">Sectors</a>
+             <a href="#" onclick="showPage('services-landing'); closeMenu();" class="block py-2 px-4 text-sm text-white hover:bg-navy">Services</a>
+             <a href="#" onclick="showPage('resources'); closeMenu();" class="block py-2 px-4 text-sm text-white hover:bg-navy">Resources</a>
+             <a href="#" onclick="showPage('events'); closeMenu();" class="block py-2 px-4 text-sm text-white hover:bg-navy">Events & Webinars</a>
+             <a href="#" onclick="showPage('about'); closeMenu();" class="block py-2 px-4 text-sm text-white hover:bg-navy">About Us</a>
+             <a href="#" onclick="showPage('contact'); closeMenu();" class="block py-2 px-4 text-sm text-white hover:bg-navy">Contact</a>
+        </div>
+    </header>
+
+    <main class="en-font">
+        <div id="home" class="page active">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="slider1.avif" class="d-block w-100" alt="Building Trust">
+                        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                            <h1 class="text-white">Shaping a Safer, More Sustainable World</h1>
+                            <p class="text-gray-300">Your trusted partner in assurance, certification, and training to navigate risk and drive improvement.</p>
+                            <a href="#" onclick="showPage('contact')" class="btn-primary py-3 px-8 rounded-lg text-lg font-semibold">Request a Quote</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="slider2.jpeg" class="d-block w-100" alt="Cyber Security">
+                        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                            <h1 class="text-white">Protecting Your Digital Future</h1>
+                            <p class="text-gray-300">Advanced cybersecurity services to safeguard your critical assets and ensure business continuity.</p>
+                            <a href="#" onclick="showPage('service-cyber')" class="btn-primary py-3 px-8 rounded-lg text-lg font-semibold">Learn About Cybersecurity</a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="slider3.avif" class="d-block w-100" alt="Professional Training">
+                        <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                            <h1 class="text-white">Empowering Your Team Through Knowledge</h1>
+                            <p class="text-gray-300">World-class training programs designed to enhance skills and drive organizational excellence.</p>
+                            <a href="#" onclick="showPage('service-training')" class="btn-primary py-3 px-8 rounded-lg text-lg font-semibold">Explore Training Programs</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            
+            <section class="py-20 bg-light-navy">
+                <div class="container mx-auto px-4">
+                    <h2 class="section-title text-center mb-12">What We Do</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                        <div class="card-bg p-6 text-center">
+                            <div class="flex justify-center mb-4"><svg class="w-10 h-10 text-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                            <h3 class="text-xl font-bold mb-2">Certification</h3><p class="text-gray-400">Assuring compliance against international standards.</p>
+                        </div>
+                        <div class="card-bg p-6 text-center">
+                             <div class="flex justify-center mb-4"><svg class="w-10 h-10 text-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.354a15.056 15.056 0 01-4.5 0m3.75-12.478a12.06 12.06 0 00-4.5 0m7.5 0a9 9 0 00-9 0" /></svg></div>
+                            <h3 class="text-xl font-bold mb-2">Consulting</h3><p class="text-gray-400">Expert guidance to optimize your systems.</p>
+                        </div>
+                        <div class="card-bg p-6 text-center">
+                            <div class="flex justify-center mb-4"><svg class="w-10 h-10 text-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5z" /></svg></div>
+                            <h3 class="text-xl font-bold mb-2">Training</h3><p class="text-gray-400">Developing competent professionals and teams.</p>
+                        </div>
+                        <div class="card-bg p-6 text-center">
+                            <div class="flex justify-center mb-4"><svg class="w-10 h-10 text-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.6-3.752-.951 2.36-4.24 3.992-7.901 3.992-3.66 0-6.951-1.632-7.901-3.992A11.95 11.95 0 0012 2.75c.25 0 .5.028.748.083z" /></svg></div>
+                            <h3 class="text-xl font-bold mb-2">Cyber Security</h3><p class="text-gray-400">Protecting your digital assets from threats.</p>
+                        </div>
+                        <div class="card-bg p-6 text-center">
+                            <div class="flex justify-center mb-4"><svg class="w-10 h-10 text-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg></div>
+                            <h3 class="text-xl font-bold mb-2">Digital Solutions</h3><p class="text-gray-400">Leveraging technology for transformation.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20">
+                <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="section-title mb-6">Why Partner with Takeed?</h2>
+                        <p class="text-gray-400 mb-4 leading-relaxed">We are a market leader in assurance and certification, bringing a history of expertise, a global footprint, and a client-focused approach to help you manage risk and achieve excellence.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><svg class="w-6 h-6 mr-2 text-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span><strong class="text-white">Deep Technical Expertise:</strong> Our auditors and consultants are industry specialists.</span></li>
+                            <li class="flex items-start"><svg class="w-6 h-6 mr-2 text-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span><strong class="text-white">Global Recognition:</strong> Accredited by major international bodies, ensuring your certificate is valued worldwide.</span></li>
+                            <li class="flex items-start"><svg class="w-6 h-6 mr-2 text-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span><strong class="text-white">Partnership Approach:</strong> We work with you to understand your unique needs and goals.</span></li>
+                        </ul>
+                    </div>
+                    <div><img src="about.avif" alt="Professionals collaborating" class="rounded-lg shadow-lg"></div>
+                </div>
+            </section>
+            
+            <section class="py-20 bg-light-navy">
+                <div class="container mx-auto px-4 text-center">
+                    <div class="flex justify-center mb-4">
+                        <svg class="w-16 h-16 text-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-4">Subscribe to our newsletter</h2>
+                    <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto mt-8">
+                        <input type="email" placeholder="Enter your email" class="flex-grow bg-navy rounded-md border border-light-navy px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-green">
+                        <button type="submit" class="btn-primary py-3 px-8 rounded-md font-semibold">Sign Up</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div id="about" class="page">
+            <section class="py-20 bg-light-navy">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-5xl font-bold mb-4">Who We Are</h1>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">We are a leading global assurance provider, shaping a safer and more sustainable world by building trust and confidence in the brands and products we touch.</p>
+                </div>
+            </section>
+            
+            <section class="py-20">
+                <div class="container mx-auto px-4">
+                    <div class="grid md:grid-cols-2 gap-16 items-center mb-24">
+                        <div>
+                            <h2 class="section-title mb-6">Our Story</h2>
+                            <p class="text-gray-400 mb-4 leading-relaxed">Takeed is a trusted provider of certification and training services, empowering organizations to achieve operational excellence. We offer internationally accredited certification to ISO standards, as well as expert consulting and advisory services.</p>
+                            <p class="text-gray-400 leading-relaxed">Our mission is to deliver quality solutions that enhance organizational performance and resilience, driven by our vision to be the leading certification and advisory partner in the Middle East and Africa.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-8 text-center">
+                            <div class="card-bg p-6 rounded-lg"><p class="text-5xl font-extrabold text-green">50+</p><p class="text-gray-300">Consultants & Auditors</p></div>
+                            <div class="card-bg p-6 rounded-lg"><p class="text-5xl font-extrabold text-green">15+</p><p class="text-gray-300">Years of Experience</p></div>
+                            <div class="card-bg p-6 rounded-lg col-span-2"><p class="text-5xl font-extrabold text-green">3K+</p><p class="text-gray-300">Certificates Issued</p></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-24">
+                        <h2 class="section-title text-center mb-12">Our Values</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                            <div class="text-center">
+                                <div class="flex justify-center mb-4"><svg class="w-12 h-12 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                                <h3 class="text-xl font-bold text-white mb-2">Integrity</h3>
+                                <p class="text-gray-400">We act with honesty and transparency in all our interactions.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="flex justify-center mb-4"><svg class="w-12 h-12 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M4 17v4M2.05 17h4M17 3v4M15 5h4M18 17v4M16.05 17h4M9 12a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0zM9 3a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0zM9 21a3 3 0 11-6 0 3 3 0 016 0zm12 0a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+                                <h3 class="text-xl font-bold text-white mb-2">Excellence</h3>
+                                <p class="text-gray-400">We strive for the highest quality in our services and outcomes.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="flex justify-center mb-4"><svg class="w-12 h-12 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
+                                <h3 class="text-xl font-bold text-white mb-2">Collaboration</h3>
+                                <p class="text-gray-400">We work as a partner to our clients and within our teams.</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="flex justify-center mb-4"><svg class="w-12 h-12 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></div>
+                                <h3 class="text-xl font-bold text-white mb-2">Customer Focus</h3>
+                                <p class="text-gray-400">We are dedicated to the success and satisfaction of our clients.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-12">
+                        <h2 class="section-title text-center mb-12">Our Leadership</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div class="card-bg p-6 text-center">
+                                <img src="abdulla.jpg" class="w-32 h-32 rounded-full mx-auto mb-4 border-2 border-green object-cover">
+                                <h3 class="text-xl font-bold text-white">A. Metwaly</h3>
+                                <p class="text-green">Executive Officer</p>
+                            </div>
+                             <div class="card-bg p-6 text-center">
+                                <img src="marwa.jpg" class="w-32 h-32 rounded-full mx-auto mb-4 border-2 border-green object-cover">
+                                <h3 class="text-xl font-bold text-white">Marwa M</h3>
+                                <p class="text-green">Operations Officer</p>
+                            </div>
+                              <div class="card-bg p-6 text-center">
+                                <img src="mohamed alqahtani.jpg" class="w-32 h-32 rounded-full mx-auto mb-4 border-2 border-green object-cover">
+                                <h3 class="text-xl font-bold text-white">Mohamed Elqhtani</h3>
+                                <p class="text-green">Managing Director</p>
+                            </div>
+                             <div class="card-bg p-6 text-center">
+                                <img src="abdalla elqhtani.jpg" class="w-32 h-32 rounded-full mx-auto mb-4 border-2 border-green object-cover">
+                                <h3 class="text-xl font-bold text-white">Abdulla Elqhtani</h3>
+                                <p class="text-green">Puplic Relation(PR)</p>
+                            </div>
+                          
+                        
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <h2 class="section-title mb-4">Join Our Team</h2>
+                        <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8">Ready to make an impact? Explore career opportunities at Takeed and help us shape a safer, more sustainable future.</p>
+                        <a href="#" class="btn-primary py-3 px-8 rounded-lg text-lg font-semibold">View Open Positions</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="services-landing" class="page">
+             <section class="py-20 bg-light-navy">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-5xl font-bold mb-4">Our Services</h1>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">From certification and training to advisory services, we are your trusted partner for a safer, more sustainable world. Explore our services to see how we can support your business.</p>
+                </div>
+            </section>
+            <section class="py-20"><div class="container mx-auto px-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card-bg p-8 rounded-lg flex flex-col"><h3 class="text-2xl font-bold mb-4 text-green">Training & Certification</h3><ul class="space-y-3 text-gray-300 flex-grow"><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Corporate Training</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Public Training Courses</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>International Certifications (ISO, ITIL, PMP, etc.)</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Customized Training Programs</li></ul><button onclick="showPage('service-training')" class="btn-primary w-full mt-6 py-2 px-4 rounded-lg text-center font-semibold">Learn More</button></div>
+                <div class="card-bg p-8 rounded-lg flex flex-col"><h3 class="text-2xl font-bold mb-4 text-green">Consulting Services</h3><ul class="space-y-3 text-gray-300 flex-grow"><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Business Assurance</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Process Optimization</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Strategic Planning</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Quality Management Systems</li></ul><button onclick="showPage('service-consulting')" class="btn-primary w-full mt-6 py-2 px-4 rounded-lg text-center font-semibold">Learn More</button></div>
+                <div class="card-bg p-8 rounded-lg flex flex-col"><h3 class="text-2xl font-bold mb-4 text-green">Auditing & Compliance</h3><ul class="space-y-3 text-gray-300 flex-grow"><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>ISO Audits</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Risk Management</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Gap Analysis</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Compliance Reporting</li></ul><button onclick="showPage('service-assessment')" class="btn-primary w-full mt-6 py-2 px-4 rounded-lg text-center font-semibold">Learn More</button></div>
+                <div class="card-bg p-8 rounded-lg flex flex-col"><h3 class="text-2xl font-bold mb-4 text-green">Digital Transformation</h3><ul class="space-y-3 text-gray-300 flex-grow"><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>ERP & Odoo Implementation</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>AI & Automation Solutions</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>IT Governance</li><li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Cloud & Cybersecurity</li></ul><button onclick="showPage('service-cyber')" class="btn-primary w-full mt-6 py-2 px-4 rounded-lg text-center font-semibold">Learn More</button></div>
+            </div></div></section>
+        </div>
+
+        <div id="industries" class="page">
+            <section class="py-20 bg-light-navy">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-5xl font-bold mb-4">Industries We Serve</h1>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">We provide specialized assurance services across a wide range of sectors, understanding the unique challenges and risks of each.</p>
+                </div>
+            </section>
+            <section class="py-20"><div id="industries-list" class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div></section>
+        </div>
+
+        <div id="resources" class="page">
+            <section class="py-20 bg-light-navy"><div class="container mx-auto px-4 text-center"><h1 class="text-5xl font-bold mb-4">Insights & Resources</h1><p class="text-lg text-gray-400 max-w-3xl mx-auto">Explore our latest articles, whitepapers, and expert analysis to stay ahead of the curve in a rapidly changing world.</p></div></section>
+            <section class="py-20"><div class="container mx-auto px-4">
+                <div class="mb-20"><div class="grid grid-cols-1 md:grid-cols-3 gap-8"><div class="card-bg p-8 text-center"><h3 class="text-2xl font-bold mb-2">Blog & Articles</h3><p class="text-gray-400">Read the latest from our experts.</p></div><div class="card-bg p-8 text-center"><h3 class="text-2xl font-bold mb-2">Case Studies</h3><p class="text-gray-400">See our success stories.</p></div><div class="card-bg p-8 text-center"><h3 class="text-2xl font-bold mb-2">Whitepapers</h3><p class="text-gray-400">In-depth reports and research.</p></div></div></div>
+                <div class="mb-20"><div class="max-w-4xl mx-auto card-bg p-8 rounded-lg"><h3 class="text-3xl font-bold mb-4 text-center flex items-center justify-center"><span class="text-3xl mr-3">✨</span> AI-Powered FAQ</h3><p class="text-gray-400 mb-6 text-center">Have a question? Ask our AI assistant for an instant, detailed answer.</p><div class="mb-4"><label for="faq-question" class="sr-only">Ask a question</label><input type="text" id="faq-question" placeholder="e.g., What are the steps for ISO 9001 certification?" class="w-full bg-light-navy rounded-lg border border-navy px-4 py-3 text-white focus:outline-none focus:border-green"></div><button id="get-faq-answer-btn" class="btn-primary w-full py-3 rounded-lg font-semibold flex items-center justify-center">Get AI Answer</button><div id="faq-answer-result" class="mt-6 p-4 bg-navy/50 rounded-lg border border-green/30 hidden"></div></div></div>
+                <div class="max-w-4xl mx-auto text-center"><h3 class="text-3xl font-bold mb-4">Subscribe for Updates</h3><p class="text-gray-400 mb-6">Join our mailing list to get the latest news, updates, and offers from Takeed.</p><form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"><input type="email" placeholder="Enter your email" class="flex-grow bg-light-navy rounded-lg border border-navy px-4 py-3 text-white focus:outline-none focus:border-green"><button type="submit" class="btn-primary py-3 px-8 rounded-lg font-semibold">Subscribe</button></form></div>
+            </div></section>
+        </div>
+
+        <div id="events" class="page">
+            <section class="py-20 bg-light-navy">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-5xl font-bold mb-4">Events & Webinars</h1>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">Join our experts to explore the latest industry trends, standards updates, and best practices in assurance and certification.</p>
+                </div>
+            </section>
+            <section class="py-20">
+                <div id="events-list" class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    </div>
+            </section>
+        </div>
+        
+       <div id="PrivacyPolicy" class="page">
+    <section class="py-20 bg-light-navy">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-4">Company Policies</h1>
+            <p class="text-lg text-gray-400 max-w-3xl mx-auto">Our commitment to transparency, security, and ethical business practices.</p>
+        </div>
+    </section>
+    <section class="py-20">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-green mb-4">Privacy Policy</h2>
+                <p class="text-gray-400">
+                    Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.
+                    We collect data to provide and improve our services, communicate with you, and ensure security. We do not sell or
+                    share your information with third parties except as necessary to provide our services or as required by law.
+                </p>
+            </div>
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-green mb-4">Terms of Service</h2>
+                <p class="text-gray-400">
+                    By using our website and services, you agree to our terms of service. These terms govern your use of our platform,
+                    our responsibilities as a provider, and your obligations as a user. It covers intellectual property rights,
+                    acceptable use, and limitation of liability.
+                </p>
+            </div>
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-green mb-4">Quality Policy</h2>
+                <p class="text-gray-400">
+                    We are committed to delivering high-quality assurance, certification, and training services. Our quality management
+                    system is designed to meet the requirements of ISO 9001, ensuring customer satisfaction, continuous improvement,
+                    and compliance with all applicable regulations.
+                </p>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-navy">
+                <h2 class="text-4xl font-bold text-white mb-6">Relevant Documents</h2>
+                <p class="text-gray-400 mb-8">Below you can view and download important documents related to our certifications and services.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card-bg p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4 text-white">Sample Insurance Certificate</h3>
+                        <div class="mb-4">
+                            <iframe src="Fundamental Terms and Conditions.pdf" class="w-full h-80 border border-navy rounded-lg" title="Sample Insurance Certificate"></iframe>
+                        </div>
+                        <a href="Fundamental Terms and Conditions.pdf" download="Sample_Insurance_Certificate.pdf" class="btn-primary w-full py-2 px-4 rounded-lg text-center font-semibold mt-4">
+                            <i class="fas fa-download mr-2"></i> Download Insurance PDF
+                        </a>
+                   
+                    </div>
+
+                    <div class="card-bg p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4 text-white">Sample ISO 9001 Certificate</h3>
+                        <div class="mb-4">
+                            <iframe src="Appeals and complaints handling process.pdf" class="w-full h-80 border border-navy rounded-lg" title="Sample ISO 9001 Certificate"></iframe>
+                        </div>
+                        <a href="Appeals and complaints handling process.pdf" download="Sample_ISO9001_Certificate.pdf" class="btn-primary w-full py-2 px-4 rounded-lg text-center font-semibold mt-4">
+                            <i class="fas fa-download mr-2"></i> Download ISO Certificate PDF
+                        </a>
+                      
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+</div>
+
+
+        <div id="contact" class="page">
+            <section class="py-20 bg-light-navy">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-5xl font-bold mb-4">Contact Us</h1>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">We're here to help. Whether you have a question about our services or want to request a quote, our team is ready to answer your questions.</p>
+                </div>
+            </section>
+            <section class="py-20">
+                <div class="container mx-auto px-4">
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div class="card-bg p-8 rounded-lg">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center text-green">
+                                <svg class="w-8 h-8 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                Request a Quote
+                            </h3>
+                            <p class="text-gray-400 mb-6">
+                                For a more tailored recommendation, use our AI Service Advisor.
+                            </p>
+                            <div class="bg-navy/50 p-6 rounded-lg">
+                                <h4 class="text-xl font-bold mb-4 flex items-center"><span class="text-xl mr-2">✨</span> AI Service Advisor</h4>
+                                <p class="text-gray-400 mb-4 text-sm">Describe your business needs, and our AI will recommend the best services for you.</p>
+                                <div class="mb-4">
+                                    <textarea id="ai-message" rows="4" placeholder="e.g., 'We are a startup in the fintech industry and need to ensure our customer data is secure...'" class="w-full bg-light-navy rounded-lg border border-navy px-4 py-3 text-white focus:outline-none focus:border-green"></textarea>
+                                </div>
+                                <button id="get-recommendation-btn" class="btn-secondary w-full py-2 rounded-lg font-semibold">Get AI Recommendation</button>
+                                <div id="ai-recommendation-result" class="mt-4 p-4 bg-navy/50 rounded-lg border border-green/30 hidden"></div>
+                            </div>
+                        </div>
+                        <div class="card-bg p-8 rounded-lg">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center text-green">
+                                <svg class="w-8 h-8 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                Our Offices
+                            </h3>
+                            <div class="space-y-4 text-gray-300">
+                                <div>
+                                    <h4 class="font-bold text-lg text-white">Saudi Arabia</h4>
+                                    <p>First Floor, Office No. 7 Sheikh Hasan Ibn Husseif, Munisiyah, Riyadh</p>
+                                    <p>+966 53 538 8951</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-white">Egypt</h4>
+                                    <p>20 Ahmed Eshatoun Street, Dokki, Giza</p>
+                                    <p>+20 109 630 3756 / +20 102 611 9361</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="service-iso-revision" class="page"></div>
+        <div id="service-assessment" class="page"></div>
+        <div id="service-cyber" class="page"></div>
+        <div id="service-training" class="page"></div>
+        <div id="service-consulting" class="page"></div>
+        <div id="service-data" class="page"></div>
+        
+        <div id="sector-food" class="page"></div>
+        <div id="sector-financial" class="page"></div>
+        <div id="sector-energy" class="page"></div>
+        <div id="sector-transport" class="page"></div>
+        <div id="sector-tech" class="page"></div>
+        <div id="sector-retail" class="page"></div>
+        <div id="sector-construction" class="page"></div>
+        <div id="sector-healthcare" class="page"></div>
+
+    </main>
+
+    <footer class="bg-light-navy pt-16 pb-8 en-font">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8 text-center md:text-left">
+                <div class="flex flex-col items-center md:items-start"><img src="takeed_logo-removebg-preview.png" alt="Takeed Logo" class="h-14 mb-4"><p class="text-gray-400">Your partner for ISO certification, cybersecurity readiness, and digital transformation.</p></div>
+                <div><h4 class="text-xl font-semibold mb-4 text-white">Quick Links</h4><ul class="space-y-2"><li><a href="#" onclick="showPage('services-landing')" class="text-gray-400 hover:text-green">Services</a></li><li><a href="#" onclick="showPage('about')" class="text-gray-400 hover:text-green">About Us</a></li><li><a href="#" onclick="showPage('contact')" class="text-gray-400 hover:text-green">Contact</a></li></ul></div>
+                <div><h4 class="text-xl font-semibold mb-4 text-white">Certifications</h4><ul class="space-y-2"><li><a href="#" class="text-gray-400 hover:text-green">ISO 9001</a></li><li><a href="#" onclick="showPage('service-iso-revision')" class="text-gray-400 hover:text-green">ISO 27001</a></li><li><a href="#" onclick="showPage('service-iso-revision')" class="text-gray-400 hover:text-green">ISO 14001</a></li></ul></div>
+                <div><h4 class="text-xl font-semibold mb-4 text-white">Contact Us</h4><div class="text-gray-400 space-y-2"><p><strong>KSA:</strong> +966 53 538 8951</p><p><strong>Egypt:</strong> +20 109 630 3756</p><p>info@takeed-me.com</p></div></div>
+            </div>
+            <div class="border-t border-navy pt-8 flex flex-col md:flex-row justify-between items-center text-center"><p class="text-gray-500 mb-4 md:mb-0">&copy; 2024 Takeed. All Rights Reserved.</p><div class="flex space-x-4"><a href="#" onclick="showPage('PrivacyPolicy')" class="nav-link text-gray-300 hover:text-green transition">Company Policies</a><a href="#" class="text-gray-500 hover:text-green">Terms of Use</a></div></div>
+        </div>
+    </footer>
+    
+    <div id="ai-tool-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden opacity-0">
+        <div class="modal-container bg-light-navy border border-green/50 rounded-lg w-full max-w-2xl max-h-full overflow-y-auto p-8 relative transform scale-95">
+            <button id="close-ai-tool-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <div id="ai-tool-content">
+                </div>
+        </div>
+    </div>
+    <div id="industry-analysis-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden opacity-0">
+        <div class="modal-container bg-light-navy border border-green/50 rounded-lg w-full max-w-2xl max-h-full overflow-y-auto p-8 relative transform scale-95">
+            <button id="close-industry-analysis-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <div id="industry-analysis-content"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        // --- DOM Elements ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const getRecommendationBtn = document.getElementById('get-recommendation-btn');
+        const aiMessageInput = document.getElementById('ai-message');
+        const aiRecommendationResult = document.getElementById('ai-recommendation-result');
+        const getFaqAnswerBtn = document.getElementById('get-faq-answer-btn');
+        const faqQuestionInput = document.getElementById('faq-question');
+        const faqAnswerResult = document.getElementById('faq-answer-result');
+        const industriesList = document.getElementById('industries-list');
+        const eventsList = document.getElementById('events-list');
+        
+        // AI Tool Modal Elements
+        const aiToolModal = document.getElementById('ai-tool-modal');
+        const closeAIToolBtn = document.getElementById('close-ai-tool-btn');
+        const aiToolContent = document.getElementById('ai-tool-content');
+        
+        // Industry Analysis Modal Elements
+        const industryAnalysisModal = document.getElementById('industry-analysis-modal');
+        const closeIndustryAnalysisBtn = document.getElementById('close-industry-analysis-btn');
+        const industryAnalysisContent = document.getElementById('industry-analysis-content');
+
+        // --- Gemini API Configuration ---
+        const API_KEY = ""; // Leave blank - **IMPORTANT: Replace with your actual Gemini API Key for production**
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+        
+        // --- Data ---
+        // Added 'description' for short display and 'detailedContent' for full page content
+        const industriesData = [
+            { id: 'sector-food', title:'Food and Beverage', image: 'food and beverages.avif', description: 'The food and beverage industry faces intense scrutiny from regulators and consumers. Building trust requires a demonstrable commitment to safety and quality throughout the supply chain.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><h3 class="text-2xl font-bold text-green mb-4">Why Food Safety is Critical</h3><p class="text-gray-400 leading-relaxed">Ensure compliance with global food safety standards and protect your brand's reputation. We help you navigate complex regulations, reduce risks, and enhance consumer trust.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Food Safety Certification:</strong> Achieve compliance with global standards like FSSC 22000, ISO 22000, and BRCGS.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Supply Chain Audits:</strong> Ensure safety and quality at every stage, from farm to fork.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Customized Training:</strong> Equip your team with the latest knowledge in food safety and quality management.</span></li></ul></div><div><img src="food and beverages.avif" class="rounded-lg shadow-lg" alt="Food Industry"></div></div>` },
+            { id: 'sector-financial', title:'Financial and Professional Services', image: 'industry_financial.jpeg', description: 'In the high-stakes world of finance and professional services, trust and resilience are non-negotiable. Protecting sensitive data, ensuring business continuity, and maintaining service quality are critical.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><img src="industry_financial.jpeg" class="rounded-lg shadow-lg" alt="Financial Services"></div><div><h3 class="text-2xl font-bold text-green mb-4">Navigating Risk in Finance</h3><p class="text-gray-400 leading-relaxed">We provide assurance services to help you manage complex risks, build confidence with clients and regulators, and maintain operational integrity in a highly regulated environment.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Information Security (ISO 27001):</strong> Protect client data and digital assets against cyber threats.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Business Continuity (ISO 22301):</strong> Ensure your operations can withstand and recover from disruptions.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Quality Management (ISO 9001):</strong> Deliver consistent, high-quality service to your clients.</span></li></ul></div></div>` },
+            { id: 'sector-energy', title:'Energy and Renewables', image: 'industry_energy.avif', description: 'As the world transitions to a more sustainable energy future, the sector faces unique challenges in safety, environmental management, and operational efficiency.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><h3 class="text-2xl font-bold text-green mb-4">Sustainable Energy Assurance</h3><p class="text-gray-400 leading-relaxed">We help energy and renewables companies operate safely, responsibly, and profitably, ensuring compliance and optimizing performance for a greener future.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Health & Safety (ISO 45001):</strong> Protect your workforce in high-risk environments.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Environmental Management (ISO 14001):</strong> Minimize your environmental footprint and meet regulatory requirements.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Asset Management (ISO 55001):</strong> Optimize the performance and lifecycle of your critical assets.</span></li></ul></div><div><img src="industry_energy.avif" class="rounded-lg shadow-lg" alt="Energy Infrastructure"></div></div>` },
+            { id: 'sector-transport', title:'Transportation and Mobility', image: 'industry_transport.jpeg', description: 'The transportation sector faces constant pressure to improve safety, efficiency, and sustainability. Takeed offers a range of assurance services to help logistics, automotive, and mobility companies meet these challenges head-on.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><img src="industry_transport.jpeg" class="rounded-lg shadow-lg" alt="Transportation Logistics"></div><div><h3 class="text-2xl font-bold text-green mb-4">Ensuring Smooth Operations</h3><p class="text-gray-400 leading-relaxed">From road to rail, air, and sea, we help you achieve operational excellence, reduce risks, and enhance safety across your transportation networks.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Quality Management (ISO 9001):</strong> Ensure reliable and consistent service delivery.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Road Traffic Safety (ISO 39001):</strong> Reduce the risk of accidents and improve safety performance.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Cybersecurity for Vehicles (ISO 21434):</strong> Protect connected vehicles from cyber threats.</span></li></ul></div></div>` },
+            { id: 'sector-tech', title:'Technology and Telecommunications', image: 'industry-tech.avif', description: 'In the fast-paced technology and telecom sector, innovation, reliability, and data security are paramount. Takeed helps companies build trust and demonstrate excellence through a range of specialized assurance services.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><h3 class="text-2xl font-bold text-green mb-4">Assurance for a Connected World</h3><p class="text-gray-400 leading-relaxed">We help technology and telecom companies manage complex risks, ensure data security, and deliver reliable services in an ever-evolving digital landscape.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Information Security (ISO 27001):</strong> The global benchmark for managing information security risks.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Service Management (ISO 20000-1):</strong> Ensure your IT services are aligned with business needs.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Data Privacy (ISO 27701):</strong> Manage and protect personally identifiable information (PII).</span></li></ul></div><div><img src="industry-tech.avif" class="rounded-lg shadow-lg" alt="Cyber Security"></div></div>` },
+            { id: 'sector-retail', title:'Consumer Goods and Retail', image: 'industry-retail.jpeg', description: 'Consumer trust is the ultimate currency in the retail sector. From product safety to ethical sourcing and data protection, Takeed helps you meet consumer expectations and regulatory requirements, securing your brand\'s reputation.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><img src="industry-retail.jpeg" class="rounded-lg shadow-lg" alt="Retail Store"></div><div><h3 class="text-2xl font-bold text-green mb-4">Building Retail Confidence</h3><p class="text-gray-400 leading-relaxed">We help you navigate market demands, supply chain complexities, and evolving consumer expectations, ensuring product quality and ethical operations.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Quality Management (ISO 9001):</strong> Ensure consistent product and service quality.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Supply Chain Security (ISO 28000):</strong> Manage risks in your supply chain, from sourcing to delivery.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Customer Data Protection:</strong> Safeguard customer information and comply with privacy regulations.</span></li></ul></div></div>` },
+            { id: 'sector-construction', title:'Construction and Engineering', image: 'industry.avif', description: 'The construction and engineering sector is defined by complex projects, tight deadlines, and stringent safety regulations. Takeed provides assurance services that help you manage these challenges, ensuring projects are delivered safely, on time, and to the highest quality standards.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><h3 class="text-2xl font-bold text-green mb-4">Foundation for Project Success</h3><p class="text-gray-400 leading-relaxed">We help you build a culture of safety and quality, ensuring your projects are executed flawlessly and meet all regulatory and client requirements.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Health and Safety (ISO 45001):</strong> Create a safe working environment for all personnel.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Quality Management (ISO 9001):</strong> Ensure the quality and integrity of your construction projects.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Environmental Management (ISO 14001):</strong> Manage your project's environmental impact and promote sustainability.</span></li></ul></div><div><img src="industry.avif" class="rounded-lg shadow-lg" alt="Construction Site"></div></div>` },
+            { id: 'sector-healthcare', title:'Healthcare and Medical', image: 'industry-healthcare.jpeg', description: 'Patient safety, data privacy, and quality of care are the cornerstones of the healthcare industry. Takeed offers specialized assurance services to help healthcare providers, medical device manufacturers, and pharmaceutical companies navigate a complex regulatory landscape and deliver the highest standard of care.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><img src="industry-healthcare.jpeg" class="rounded-lg shadow-lg" alt="Medical Lab"></div><div><h3 class="text-2xl font-bold text-green mb-4">Assurance for Patient-Centric Care</h3><p class="text-gray-400 leading-relaxed">We provide critical assurance services to help you navigate a complex regulatory landscape, enhance patient safety, and deliver the highest standard of care.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Medical Devices (ISO 13485):</strong> Ensure the quality and safety of your medical devices.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Information Security (ISO 27001):</strong> Protect sensitive patient health information (PHI).</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Quality Management (ISO 9001):</strong> Improve processes and patient outcomes in healthcare facilities.</span></li></ul></div><div><img src="https://images.unsplash.com/photo-1576091160399-112ba8d87f9d?q=80&w=2070&auto=format&fit=crop" class="rounded-lg shadow-lg" alt="Medical Lab"></div></div>` }
+        ];
+        
+        const servicesData = [
+            { id: 'service-iso-revision', title: 'ISO 9001, 14001 & 45001 Standards Revision', image: 'deatailed-iso.avif', description: 'Staying current with the latest revisions of ISO standards is crucial for maintaining a competitive edge and ensuring your management systems are effective. Takeed provides expert guidance to help you smoothly transition to the latest versions.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><h3 class="text-2xl font-bold text-green mb-4">Why Update Your ISO Standards?</h3><p class="text-gray-400 leading-relaxed">Align your systems with the latest best practices for improved efficiency, greater resilience, and enhanced stakeholder trust.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Enhanced Performance:</strong> Align your systems with the latest best practices for improved efficiency and effectiveness.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Greater Resilience:</strong> Better address new risks and opportunities in today's dynamic business environment.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Improved Stakeholder Trust:</strong> Demonstrate your commitment to quality, environmental responsibility, and employee well-being.</span></li></ul></div><div><img src="deatailed-iso.avif" class="rounded-lg shadow-lg" alt="ISO Standards"></div></div><h3 class="text-2xl font-bold text-green mt-12 mb-4">Our Transition Process</h3><p class="text-gray-400">Our experts guide you through a structured process, including gap analysis, implementation support, and final assessment, ensuring a seamless and successful transition to the revised ISO standards.</p>` },
+            { id: 'service-assessment', title: 'Assessment and Certification', image: 'detailed 2.jpeg', description: 'Achieve credible, independent assurance of your management systems. Our assessment and certification services help you build stakeholder trust, manage risk, and drive continuous improvement.', detailedContent: `<p class="text-gray-400 leading-relaxed mb-6">Our global network of expert auditors delivers rigorous, impartial assessments tailored to your industry and business needs, providing you with the confidence that your systems meet and exceed international benchmarks.</p><h3 class="text-2xl font-bold text-green mt-12 mb-12">Our Certification Journey</h3><div class="timeline-infographic"><div class="timeline-step"><div class="timeline-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg></div><h4 class="font-bold">1. Application & Scoping</h4></div><div class="timeline-step"><div class="timeline-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg></div><h4 class="font-bold">2. Gap Analysis</h4></div><div class="timeline-step"><div class="timeline-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div><h4 class="font-bold">3. Stage 1 & 2 Audits</h4></div><div class="timeline-step"><div class="timeline-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div><h4 class="font-bold">4. Certification Decision</h4></div><div class="timeline-step"><div class="timeline-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.667 0l3.181-3.183m-4.991-2.691V5.25a2.25 2.25 0 00-2.25-2.25L10.5 2.25v4.992m0 0H5.25m5.25 0l-1.017 1.017a2.25 2.25 0 003.182 0l1.017-1.017m-2.165 0a2.25 2.25 0 012.165 0l1.017 1.017a2.25 2.25 0 003.182 0l3.181-3.183m-3.181 4.991v-2.691" /></svg></div><h4 class="font-bold">5. Surveillance Audits</h4></div></div>` },
+            { id: 'service-cyber', title: 'Cyber Security Services', image: 'detailed cyper security.jpeg', description: 'In today\'s digital landscape, protecting your information assets is paramount. Takeed\'s cyber security services provide a comprehensive framework to safeguard your organization against evolving threats.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><h3 class="text-2xl font-bold text-green mb-4">Safeguarding Your Digital Assets</h3><p class="text-gray-400 leading-relaxed">From risk assessments and penetration testing to incident response and digital forensics, our experts provide the end-to-end support you need to protect your data, reputation, and customer trust.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>ISO 27001 Certification:</strong> Implement robust information security management systems.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Vulnerability Assessments & Penetration Testing:</strong> Identify and mitigate weaknesses.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Incident Response Planning:</strong> Prepare for and respond to security breaches effectively.</span></li></ul></div><div><img src="detailed cyper security.jpeg" class="rounded-lg shadow-lg" alt="Cyber Security"></div></div>` },
+            { id: 'service-training', title: 'Professional Training', image: 'detailed-training.jpeg', description: 'Empower your team with the knowledge and skills to drive excellence. Our accredited training programs are designed and delivered by industry experts, covering a wide range of standards and disciplines.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><img src="detailed-training.jpeg" class="rounded-lg shadow-lg" alt="Training Session"></div><div><h3 class="text-2xl font-bold text-green mb-4">Develop Your Team's Potential</h3><p class="text-gray-400 leading-relaxed">Invest in your people to build internal capabilities, foster a culture of continuous improvement, and ensure the long-term success of your management systems.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Accredited Courses:</strong> From foundational to lead auditor training in ISO standards.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Customized Programs:</strong> Tailored content to address your organization's specific needs.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Flexible Delivery:</strong> In-person, virtual, and blended learning options.</span></li></ul></div></div>` },
+            { id: 'service-consulting', title: 'Consulting Services', image: 'detailed-consulting.jpeg', description: 'Navigate complexity and achieve your strategic objectives with Takeed\'s expert consulting services. Our consultants work as your partners, providing tailored guidance to optimize processes, enhance business assurance, and drive strategic planning.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><h3 class="text-2xl font-bold text-green mb-4">Strategic Guidance for Growth</h3><p class="text-gray-400 leading-relaxed">We leverage our deep industry knowledge to help you overcome challenges, seize opportunities, and build a more resilient and successful organization.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Process Optimization:</strong> Streamline operations and enhance efficiency.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Business Assurance:</strong> Strengthen your management systems and governance frameworks.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Strategic Planning:</strong> Develop actionable strategies for sustainable growth.</span></li></ul></div><div><img src="detailed-consulting.jpeg" class="rounded-lg shadow-lg" alt="Consulting Meeting"></div></div>` },
+            { id: 'service-data', title: 'Data and Analytics', image: 'detailed-data.jpeg', description: 'Turn your data into a strategic asset. Our data and analytics services help you unlock valuable insights to improve decision-making, manage risk, and enhance performance.', detailedContent: `<div class="grid md:grid-cols-2 gap-8 mb-12 items-center"><div><h3 class="text-2xl font-bold text-green mb-4">Unlocking Insights from Your Data</h3><p class="text-gray-400 leading-relaxed">We provide solutions for data verification, report assurance, and performance benchmarking, giving you confidence in the integrity of your data and a competitive advantage.</p><ul class="space-y-3 text-gray-300 mt-4"><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Data Verification & Assurance:</strong> Ensure the accuracy and reliability of your data.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Performance Benchmarking:</strong> Compare your performance against industry leaders.</span></li><li><svg class="w-5 h-5 mr-2 text-green flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>Custom Reporting & Dashboards:</strong> Visualize key metrics for better decision-making.</span></li></ul></div><div><img src="detailed-data.jpeg" class="rounded-lg shadow-lg" alt="Data Analytics"></div></div>` }
+        ];
+
+        const eventsData = [
+            { title: 'Webinar: The Future of ISO 9001 in a Digital World', date: 'August 15, 2025', description: 'Join our experts as they discuss the upcoming changes to ISO 9001 and how technology is shaping the future of quality management.', image: 'EVENT 1.avif' },
+            { title: 'In-Person Workshop: Mastering ISO 45001', date: 'September 5, 2025', description: 'A hands-on workshop designed to provide a deep understanding of the occupational health and safety standard.', image: 'EVENT2.avif' },
+            { title: 'Webinar: Cybersecurity Trends for 2026', date: 'October 10, 2025', description: 'Explore the top cybersecurity threats and opportunities for the coming year with our leading security specialists.', image: 'event3.avif' },
+        ];
+
+        // --- Functions ---
+        const showLoader = (element) => { if(element) { element.innerHTML = '<div class="flex justify-center items-center"><div class="loader"></div></div>'; element.classList.remove('hidden'); }};
+        const hideLoader = (element, content) => { if(element) { element.innerHTML = content; }};
+        
+        async function callGeminiAPI(prompt) {
+            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            try {
+                const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`API call failed with status: ${response.status} - ${errorText}`);
+                }
+                const result = await response.json();
+                if (result.candidates && result.candidates[0]?.content?.parts[0]) {
+                    let text = result.candidates[0].content.parts[0].text;
+                    // Replace markdown bold, italic, and newlines for HTML
+                    return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\n/g, '<br>');
+                } else {
+                    console.error("Unexpected API response structure:", result);
+                    return "Sorry, I couldn't get a response. The AI returned an unexpected format.";
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return `Sorry, there was an error connecting to the AI service: ${error.message}. Please check your API key and try again later.`;
+            }
+        }
+
+        async function handleAITool(prompt, resultElement, buttonElement, userInput) {
+            if (!userInput || userInput.trim() === '') {
+                resultElement.innerHTML = `<p class="text-red-400">Please provide the required information first.</p>`;
+                resultElement.classList.remove('hidden');
+                return;
+            }
+            showLoader(resultElement);
+            resultElement.classList.remove('hidden'); // Ensure result area is visible
+            buttonElement.disabled = true;
+            buttonElement.classList.add('opacity-50', 'cursor-not-allowed');
+
+            const fullPrompt = prompt.replace('[userInput]', userInput);
+            const response = await callGeminiAPI(fullPrompt);
+
+            hideLoader(resultElement, response);
+            buttonElement.disabled = false;
+            buttonElement.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+        
+        function openAIToolModal(config) {
+            aiToolContent.innerHTML = `
+                <h3 class="text-2xl font-bold mb-4 text-center flex items-center justify-center text-white">
+                    <span class="text-2xl mr-3">✨</span> ${config.title}
+                </h3>
+                <p class="text-gray-400 mb-6 text-center">${config.description}</p>
+                <div class="mb-4">
+                    <label for="ai-tool-input" class="sr-only">${config.placeholder}</label>
+                    <textarea id="ai-tool-input" rows="5" placeholder="${config.placeholder}" class="w-full bg-navy rounded-lg border border-navy px-4 py-3 text-white focus:outline-none focus:border-green"></textarea>
+                </div>
+                <button id="ai-tool-generate-btn" class="btn-primary w-full py-3 rounded-lg font-semibold flex items-center justify-center">${config.buttonText}</button>
+                <div id="ai-tool-result" class="mt-6 p-4 bg-navy/50 rounded-lg border border-green/30 hidden"></div>
+            `;
+            showModal(aiToolModal);
+
+            const generateBtn = document.getElementById('ai-tool-generate-btn');
+            const input = document.getElementById('ai-tool-input');
+            const resultDiv = document.getElementById('ai-tool-result');
+            
+            generateBtn.onclick = () => handleAITool(config.prompt, resultDiv, generateBtn, input.value);
+        }
+
+        async function handleIndustryAnalysis(industryName) {
+            showModal(industryAnalysisModal);
+            const contentArea = industryAnalysisContent;
+            // Clear previous content and show initial loading state
+            contentArea.innerHTML = `<h3 class="text-2xl font-bold mb-4 text-center text-white">Analyzing ${industryName}...</h3><div class="flex justify-center items-center"><div class="loader"></div></div>`;
+            
+            const prompt = `As a top-tier risk management consultant for 'Takeed', provide a professional analysis for the "${industryName}" industry. The analysis should cover: 1. **Key Operational Risks**: 2-3 major risks specific to this sector. 2. **Compliance Challenges**: 2-3 common regulatory or compliance hurdles. 3. **Recommended ISO Standards**: List 2-3 crucial ISO standards (e.g., ISO 9001, ISO 45001, ISO 27001) and briefly explain their relevance to this industry. Keep the tone expert, concise, and helpful.`;
+            const analysis = await callGeminiAPI(prompt);
+            hideLoader(contentArea, `<h3 class="text-2xl font-bold mb-4 text-center text-green">AI Insights: ${industryName}</h3><div class="text-gray-300">${analysis}</div>`);
+        }
+        
+        function populateIndustries() {
+            if (!industriesList) return;
+            industriesList.innerHTML = industriesData.map(industry => `
+                <div class="card-bg rounded-lg overflow-hidden flex flex-col">
+                    <img src="${industry.image}" alt="${industry.name}" class="h-48 w-full object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-white mb-4">${industry.name}</h3>
+                        <p class="text-gray-400 flex-grow mb-4">${industry.description}</p>
+                        <button onclick="handleIndustryAnalysis('${industry.name}')" class="btn-primary mt-auto w-full py-2 px-4 rounded-lg text-center font-semibold">Get AI Industry Analysis</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function populateEvents() {
+            if (!eventsList) return;
+            eventsList.innerHTML = eventsData.map(event => `
+                <div class="card-bg rounded-lg overflow-hidden flex flex-col">
+                    <img src="${event.image}" alt="${event.title}" class="h-48 w-full object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <p class="text-green text-sm mb-2">${event.date}</p>
+                        <h3 class="text-xl font-bold text-white mb-4 flex-grow">${event.title}</h3>
+                        <p class="text-gray-400 mb-4">${event.description}</p>
+                        <a href="#" class="btn-primary mt-auto w-full py-2 px-4 rounded-lg text-center font-semibold">Register Now</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showModal(modalElement) {
+            if (!modalElement) return;
+            modalElement.classList.remove('hidden');
+            setTimeout(() => { modalElement.classList.remove('opacity-0'); if (modalElement.querySelector('.modal-container')) { modalElement.querySelector('.modal-container').classList.remove('scale-95'); } }, 10);
+        }
+
+        function hideModal(modalElement) {
+            if (!modalElement) return;
+            modalElement.classList.add('opacity-0');
+            if (modalElement.querySelector('.modal-container')) { modalElement.querySelector('.modal-container').classList.add('scale-95'); }
+            setTimeout(() => { modalElement.classList.add('hidden'); }, 300);
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            const newPage = document.getElementById(pageId);
+            if (newPage) { newPage.classList.add('active'); window.scrollTo(0, 0); }
+            
+            // Update active state in navbar
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('text-white', 'font-bold');
+                link.classList.add('text-gray-300'); // Default to gray
+
+                const onclickAttr = link.getAttribute('onclick');
+                if (onclickAttr && onclickAttr.includes(`'${pageId}'`)) {
+                    link.classList.remove('text-gray-300');
+                    link.classList.add('text-white', 'font-bold');
+                } else if (link.parentElement.classList.contains('dropdown')) {
+                    // For dropdown parents, check if any child link targets this pageId
+                    const dropdownLinks = link.parentElement.querySelectorAll('.dropdown-content a');
+                    let isChildActive = false;
+                    dropdownLinks.forEach(childLink => {
+                        if (childLink.getAttribute('onclick') && childLink.getAttribute('onclick').includes(`'${pageId}'`)) {
+                            isChildActive = true;
+                        }
+                    });
+                    if (isChildActive) {
+                        link.classList.remove('text-gray-300');
+                        link.classList.add('text-white', 'font-bold');
+                    }
+                }
+            });
+        }
+        
+        function closeMenu() {
+            if(mobileMenu) mobileMenu.classList.add('hidden');
+        }
+        
+        // This function dynamically generates the content for individual service and sector pages
+        function renderDetailPage(pageId, dataArray) {
+            const pageElement = document.getElementById(pageId);
+            const pageData = dataArray.find(item => item.id === pageId);
+
+            if (pageElement && pageData) {
+                pageElement.innerHTML = `
+                    <section class="detail-page-hero">
+                        <img src="${pageData.image}" alt="${pageData.title}">
+                        <div class="container mx-auto px-4 relative z-10">
+                            <h1 class="text-5xl md:text-6xl font-bold mb-4 leading-tight">${pageData.title}</h1>
+                            <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">${pageData.description}</p>
+                        </div>
+                    </section>
+                    <section class="py-20 detail-page-content">
+                        <div class="container mx-auto px-4 max-w-4xl">
+                            ${pageData.detailedContent || '<p class="text-gray-400">Detailed information coming soon for this section. Please check back later!</p>'}
+                            <div class="mt-12 text-center">
+                                <a href="#" onclick="showPage('contact')" class="btn-primary py-3 px-8 rounded-lg text-lg font-semibold">Contact us for ${pageData.title} Services</a>
+                            </div>
+                        </div>
+                    </section>
+                `;
+            }
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home'); // Set initial page
+            populateIndustries();
+            populateEvents();
+            
+            // Dynamically render individual service and sector pages
+            servicesData.forEach(service => renderDetailPage(service.id, servicesData));
+            industriesData.forEach(industry => renderDetailPage(industry.id, industriesData));
+
+            if (mobileMenuButton) mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            if (getRecommendationBtn) getRecommendationBtn.addEventListener('click', () => handleAITool("You are an expert consultant for 'Takeed'. A client described their needs: \"[userInput]\". Which of Takeed's services (Certification, Training, Consulting, Cybersecurity, Digital Transformation) would you recommend and why? Be professional and helpful.", aiRecommendationResult, getRecommendationBtn, aiMessageInput.value));
+            if (getFaqAnswerBtn) getFaqAnswerBtn.addEventListener('click', () => handleAITool("You are a helpful and knowledgeable consultant from 'Takeed', a company specializing in ISO certification, training, and cybersecurity. A customer has asked the following question: \"[userInput]\". Please provide a clear, comprehensive, and professional answer. If the question is about a process (like getting certified), outline the steps. Assume the answer should reflect Takeed's standard procedures. If the question is outside your scope, politely state that you can only answer questions related to certification, training, cybersecurity, and business consulting.", faqAnswerResult, getFaqAnswerBtn, faqQuestionInput.value));
+            
+            // AI Tool Modal Triggers
+            document.getElementById('open-training-designer-btn')?.addEventListener('click', () => openAIToolModal({
+                title: 'AI Training Program Designer',
+                description: 'Describe your team and their training goals, and our AI will draft a custom program outline for you.',
+                placeholder: "e.g., 'I have a team of 15 new sales representatives who need to learn about effective negotiation and closing techniques...'",
+                buttonText: 'Generate Training Outline',
+                prompt: "You are an expert instructional designer at 'Takeed'. A client has the following training need: \"[userInput]\". Based on this, design a concise, professional training program outline. The outline should include a Program Title, a brief Objective, suggested Modules with 2-3 key topics each, and an estimated Duration. Structure the output clearly with headings."
+            }));
+            document.getElementById('open-consulting-assistant-btn')?.addEventListener('click', () => openAIToolModal({
+                title: 'AI Strategy Assistant',
+                description: 'Describe your business goals, and our AI will suggest a high-level strategic approach.',
+                placeholder: "e.g., 'We want to expand into a new market and need to optimize our internal processes for efficiency...'",
+                buttonText: 'Get Strategic Advice',
+                prompt: "You are a senior business strategist at 'Takeed'. A client has these goals: \"[userInput]\". Suggest a high-level strategic approach focusing on business assurance and process optimization. Outline 2-3 key focus areas with brief explanations."
+            }));
+            document.getElementById('open-compliance-check-btn')?.addEventListener('click', () => openAIToolModal({
+                title: 'AI Compliance Check',
+                description: 'Describe your business activities, and our AI will highlight potential compliance areas and relevant ISO standards.',
+                placeholder: "e.g., 'We are a food processing company that handles and exports packaged goods...'",
+                buttonText: 'Run AI Compliance Check',
+                prompt: "You are a lead compliance auditor at 'Takeed'. A client describes their business: \"[userInput]\". Based on this, identify 2-3 potential compliance areas they should focus on and suggest the most relevant ISO standards for an audit, with a brief explanation for each standard."
+            }));
+            document.getElementById('open-roadmap-designer-btn')?.addEventListener('click', () => openAIToolModal({
+                title: 'AI Digital Transformation Roadmap',
+                description: 'Describe your current digital state and goals, and our AI will generate a mini-roadmap.',
+                placeholder: "e.g., 'Our company uses a lot of manual spreadsheets and we want to move to an integrated ERP system and explore automation...'",
+                buttonText: 'Create Digital Roadmap',
+                prompt: "You are a digital transformation expert at 'Takeed'. A client describes their current state and goals: \"[userInput]\". Create a mini 3-step digital transformation roadmap for them, focusing on areas like ERP, AI, or Cloud solutions. Provide a title and a short description for each step."
+            }));
+
+            // Close Modal Events
+            if(closeAIToolBtn) closeAIToolBtn.addEventListener('click', () => hideModal(aiToolModal));
+            if(aiToolModal) aiToolModal.addEventListener('click', (e) => { if (e.target === aiToolModal) hideModal(aiToolModal); });
+            if(closeIndustryAnalysisBtn) closeIndustryAnalysisBtn.addEventListener('click', () => hideModal(industryAnalysisModal));
+            if(industryAnalysisModal) industryAnalysisModal.addEventListener('click', (e) => { if (e.target === industryAnalysisModal) hideModal(industryAnalysisModal); });
+        });
+    </script>
+</body>
+</html>
